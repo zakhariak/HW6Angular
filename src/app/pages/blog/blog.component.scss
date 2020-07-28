@@ -1,0 +1,25 @@
+main {
+  height: 90vh;
+
+  &>div {
+    height: 200px;
+
+    .blogInfo {
+      width: 68vw;
+      overflow: auto;
+
+      p {
+        font-size: 18px;
+        word-wrap: break-word;
+      }
+    }
+
+    .date {
+      font-size: 14px;
+
+      i {
+        font-size: 16px;
+      }
+    }
+  }
+}

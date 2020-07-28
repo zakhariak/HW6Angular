@@ -1,0 +1,59 @@
+<header class="w-100 bg-dark d-flex justify-content-between align-items-center px-3">
+    <h4 class="text-light">Angular Blog</h4>
+    <div *ngIf="!hidden" class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-outline-success" (click)="btnSignIn(template)">Sign In</button>
+        <button type="button" class="btn btn-outline-primary" (click)="btnSignUp(template)">Sign Up</button>
+    </div>
+    <div *ngIf="hidden" class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-outline-success" (click)="btnAddPost(template)">Add post</button>
+        <button type="button" class="btn btn-warning">{{ nameBtn }}</button>
+        <button type="button" class="btn btn-outline-warning" (click)="exitUser()">Sign out</button>
+    </div>
+</header>
+
+<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">{{ mTitle }}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div *ngIf="!mAddPost" class="modal-body pb-2">
+        <div *ngIf="mSignUp" class="form-group">
+            <label for="userName">Username:</label>
+            <input [ngClass]="alertM ? 'is-invalid': ''" type="text" class="form-control" id="userName"
+                [(ngModel)]="userName" name="userName">
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input [ngClass]="alertM ? 'is-invalid': ''" type="email" class="form-control" id="email"
+                aria-describedby="emailHelp" [(ngModel)]="email" name="email">
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input [ngClass]="alertM ? 'is-invalid': ''" type="password" class="form-control" id="password"
+                [(ngModel)]="password" name="password">
+        </div>
+    </div>
+    <div *ngIf="mAddPost" class="modal-body pb-2">
+        <div class="form-group">
+            <label for="postTitle">Title:</label>
+            <input [ngClass]="alertM ? 'is-invalid': ''" type="text" class="form-control" id="postTitle"
+                [(ngModel)]="postTitle" name="postTitle">
+        </div>
+        <div class="form-group">
+            <label for="postText">Text:</label>
+            <textarea [ngClass]="alertM ? 'is-invalid': ''" class="form-control" id="postText" rows="3"
+                [(ngModel)]="postText" name="postText"></textarea>
+        </div>
+    </div>
+    <div class="container-fluid divAlert">
+        <p class="text-danger">{{ alertMessage }}</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Close</button>
+        <button type="button" class="btn" [ngClass]="mSignUp ? 'btn-primary' : 'btn-success'"
+            [innerText]="mAddPost ? 'Post':'Submit'"
+            (click)="mAddPost ? addPost() : mSignUp ? signUp() : signIn()"></button>
+    </div>
+</ng-template>
